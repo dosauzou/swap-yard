@@ -23,15 +23,16 @@ public class User {
     private String password;
     private String username;
 
-    @OneToMany(mappedBy = "user", cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    private List<Item> items;
 
-    public List<Item> getItems() {
-        return items;
+    @OneToMany(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    private List<Post> posts;
+
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public long getUser_id() {
