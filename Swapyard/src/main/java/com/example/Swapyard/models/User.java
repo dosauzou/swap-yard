@@ -3,29 +3,48 @@ package com.example.Swapyard.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-@Table(name = "Users", schema = "FYP")
 @Entity
+@Table(name = "users")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User {
 
 
-
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long user_id;
+    private String username;
 
     private String firstName;
     private String lastName;
     private String phoneNo;
     private String email;
     private String password;
-    private String username;
 
+    private boolean enabled;
 
-    @OneToMany(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
+    private Role role;
+
+    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
     private List<Post> posts;
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public List<Post> getPosts() {
         return posts;
@@ -33,14 +52,6 @@ public class User {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
-    }
-
-    public long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
     }
 
     public String getUsername() {
@@ -90,5 +101,6 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 
 }
