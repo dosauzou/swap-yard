@@ -29,21 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .usersByUsernameQuery("select username, password, enabled from users where username=?")
             .authoritiesByUsernameQuery("select username, authority from authorities where username=?")
     ;
+    System.out.println(dataSource);
 
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-
-                .authorizeRequests()
-                .antMatchers( "/register").permitAll()
+        http.cors()
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login")
-                .permitAll()
-                .anyRequest()
                 .authenticated()
                 .and().csrf()
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
@@ -56,4 +52,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+
 }

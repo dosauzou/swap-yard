@@ -16,10 +16,6 @@ public class Post {
 
     private String fileType;
 
-    @ManyToOne
-    @JoinColumn(name="item_id")
-    private Item item;
-
     public Post() {
     }
 
@@ -63,11 +59,4 @@ public class Post {
         this.id = id;
     }
 
-    public Item getItem() {
-        return item;
-    }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
 }

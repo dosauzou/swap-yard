@@ -28,7 +28,7 @@ public class User {
     private Role role;
 
     @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    private List<Post> posts;
+    private List<Item> items;
 
     public boolean isEnabled() {
         return enabled;
@@ -46,12 +46,12 @@ public class User {
         this.role = role;
     }
 
-    public List<Post> getPosts() {
-        return posts;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setPosts(List<Post> posts) {
-        this.posts = posts;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     public String getUsername() {

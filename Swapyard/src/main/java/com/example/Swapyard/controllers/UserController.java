@@ -5,6 +5,7 @@ package com.example.Swapyard.controllers;
 import com.example.Swapyard.models.Role;
 import com.example.Swapyard.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -12,14 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import com.example.Swapyard.repositories.UserRepository;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
-@RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
+@RequestMapping("/api/v1/")
 public class UserController {
 
     @Autowired
@@ -30,9 +30,8 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public Object get(@PathVariable("id") long id) {
-
         return userRepository.getOne(id);
     }
 
@@ -59,6 +58,7 @@ public class UserController {
     }
 
     //
+
 
 
 }

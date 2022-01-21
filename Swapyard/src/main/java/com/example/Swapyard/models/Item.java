@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "Items")
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-
     //choose from checkbox
     private int size;
     //choose from checkbox
@@ -22,18 +22,6 @@ public class Item {
     //The item has all off these attributes that are not null, especially images
     @OneToMany (cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List <Post> images;
-
-    @ManyToOne
-    @JoinColumn(name = "user_user_id")
-    private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public List<Post> getImages() {
         return images;
