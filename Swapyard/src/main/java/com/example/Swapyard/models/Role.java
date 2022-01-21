@@ -8,7 +8,7 @@ import java.util.Collection;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -27,7 +27,6 @@ public class Role {
         this.id = id;
     }
 
-
     public String getUsername() {
         return username;
     }
@@ -43,4 +42,5 @@ public class Role {
     public void setAuthority(String authority) {
         this.authority = authority;
     }
+
 }

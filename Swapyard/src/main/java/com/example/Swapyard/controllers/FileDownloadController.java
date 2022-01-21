@@ -23,8 +23,9 @@ public class FileDownloadController {
         return databaseFile;
     }
 
-    @GetMapping("downloads")
-    public List<Post> findAll(){
+    //Create a find by user id method
+    @GetMapping("downloads/{userId}")
+    public List<Post> findAll(@PathVariable("userId") String userId){
         List posts = postService.findAll();
         return posts;
     }

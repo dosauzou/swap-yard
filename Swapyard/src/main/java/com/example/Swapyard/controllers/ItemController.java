@@ -1,11 +1,15 @@
 package com.example.Swapyard.controllers;
 
-import com.example.Swapyard.models.Item;
+import com.example.Swapyard.models.Items;
 import com.example.Swapyard.models.User;
 import com.example.Swapyard.repositories.ItemRepository;
 import com.example.Swapyard.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200", allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
@@ -17,11 +21,14 @@ public class ItemController {
     private UserRepository userRepository;
 
     @RequestMapping( "newItem/{username}")
-    public User createItem(@PathVariable("username")String username){
-
+    public Items createItem( @RequestBody Items item, @PathVariable("username") String username ){
         User user = userRepository.findByUsername(username);
-//        user.getItems().add(item);
-//        System.out.println(item.getMaterial());
-        return user;
+        List <Items> postsList = new ArrayList<>();
+
+        user.getItems().add(item);
+        postsList.add(item);
+        System.out.println(user.getItems());
+        userRepository.save(user);
+        return item;
     }
 }

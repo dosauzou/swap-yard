@@ -1,34 +1,44 @@
 package com.example.Swapyard.models;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "Items")
-public class Item {
+public class Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
+    public Items() {
+
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    private String clothingCondition;
     //choose from checkbox
     private int size;
     //choose from checkbox
     private String color;
     //choose from checkbox
     private String material;
-    //choose from checkbox
-    private String condition;
 
-    //The item has all off these attributes that are not null, especially images
-    @OneToMany (cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    private List <Post> images;
+    //Make it one to many
+    @OneToOne (cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private Post images;
 
-    public List<Post> getImages() {
-        return images;
+    public String getClothingCondition() {
+        return clothingCondition;
     }
 
-    public void setImages(List<Post> images) {
-        this.images = images;
+    public void setClothingCondition(String clothingCondition) {
+        this.clothingCondition = clothingCondition;
     }
 
     public int getSize() {
@@ -55,19 +65,11 @@ public class Item {
         this.material = material;
     }
 
-    public String getCondition() {
-        return condition;
+    public Post getImages() {
+        return images;
     }
 
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public void setImages(Post images) {
+        this.images = images;
     }
 }

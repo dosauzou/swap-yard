@@ -21,8 +21,7 @@ public class PostService {
     public Post storePostFromFile(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Post dbFile = new Post(fileName, file.getContentType(), file.getBytes());
-        return postRepo.save(dbFile);
-
+        return dbFile;
     }
 
     public void storePost(Post post){

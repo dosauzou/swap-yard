@@ -17,8 +17,10 @@ public class FileUploadController {
     private PostService postService;
 
     @PostMapping("upload")
-    public void uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public Post uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
         Post fileName = postService.storePostFromFile(file);
+        System.out.println(fileName.getFileName());
+        return fileName;
 
     }
 

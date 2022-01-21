@@ -5,15 +5,12 @@ package com.example.Swapyard.controllers;
 import com.example.Swapyard.models.Role;
 import com.example.Swapyard.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.example.Swapyard.repositories.UserRepository;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.*;
 
@@ -38,7 +35,7 @@ public class UserController {
     //register works
     @PostMapping("register")
     @ResponseStatus(HttpStatus.OK)
-    public void create(@RequestBody User user) {
+    public User create(@RequestBody User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -49,6 +46,7 @@ public class UserController {
         role.setAuthority("ROLE_USER");
         user.setRole(role);
         userRepository.save(user);
+        return user;
     }
 
     //this works but not with my credentials? we are getting closer..

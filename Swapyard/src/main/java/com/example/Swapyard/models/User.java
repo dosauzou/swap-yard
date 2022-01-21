@@ -3,9 +3,7 @@ package com.example.Swapyard.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,8 +25,8 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     private Role role;
 
-    @OneToMany(cascade = {CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    private List<Item> items;
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private List<Items> items;
 
     public boolean isEnabled() {
         return enabled;
@@ -46,11 +44,11 @@ public class User {
         this.role = role;
     }
 
-    public List<Item> getItems() {
+    public List<Items> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<Items> items) {
         this.items = items;
     }
 

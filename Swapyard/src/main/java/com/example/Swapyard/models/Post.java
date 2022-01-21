@@ -5,10 +5,9 @@ import javax.persistence.*;
 //user has items, items have description size, color, mateiral, likes
 
 @Entity
-@Table(name = "Posts", schema = "FYP")
 public class Post {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -24,7 +23,7 @@ public class Post {
         this.fileType = fileType;
         this.data = data;
     }
-
+    @Lob
     private byte[] data;
 
     public byte[] getData() {
