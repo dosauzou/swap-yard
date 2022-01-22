@@ -23,7 +23,8 @@ public class Post {
         this.fileType = fileType;
         this.data = data;
     }
-    @Lob
+
+
     private byte[] data;
 
     public byte[] getData() {

@@ -3,7 +3,7 @@ package com.example.Swapyard.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Items")
+@Table(name = "items")
 public class Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,4 +72,5 @@ public class Items {
     public void setImages(Post images) {
         this.images = images;
     }
+
 }

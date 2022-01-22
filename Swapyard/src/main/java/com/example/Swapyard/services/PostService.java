@@ -30,7 +30,6 @@ public class PostService {
 
     public Post getPost(String fileName){
        final Post post = postRepo.findByFileName(fileName);
-
        Post newPost = new Post(post.getFileName(), post.getFileType(), post.getData());
        return newPost;
 
