@@ -24,7 +24,8 @@ public class Post {
         this.data = data;
     }
 
-
+    @Column(name = "data")
+    @Lob
     private byte[] data;
 
     public byte[] getData() {

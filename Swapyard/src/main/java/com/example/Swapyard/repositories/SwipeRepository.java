@@ -5,13 +5,10 @@ import com.example.Swapyard.models.Swipes;
 import com.example.Swapyard.models.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
-public interface ItemRepository extends JpaRepository<Items, Long>{
-
-    List<Items>  findByUsers(@Param("users") Users users);
+public interface SwipeRepository extends JpaRepository<Swipes, Long> {
+    List<Swipes> findByUserId(@Param("userId") Long userId);
 
 }

@@ -1,13 +1,12 @@
 package com.example.Swapyard.controllers;
 
 import com.example.Swapyard.models.Items;
-import com.example.Swapyard.models.User;
+import com.example.Swapyard.models.Users;
 import com.example.Swapyard.repositories.ItemRepository;
 import com.example.Swapyard.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,13 +21,22 @@ public class ItemController {
 
     @RequestMapping( "newItem/{username}")
     public Items createItem( @RequestBody Items item, @PathVariable("username") String username ){
-        User user = userRepository.findByUsername(username);
-        List <Items> postsList = new ArrayList<>();
-
+        Users user = userRepository.findByUsername(username);
+//        List <Items> postsList = new ArrayList<>();
+        System.out.println(user.getUsername());
+        item.setUsers(user);
         user.getItems().add(item);
-        postsList.add(item);
+
+//        postsList.add(item);
         System.out.println(user.getItems());
         userRepository.save(user);
         return item;
+    }
+
+    @GetMapping("getItems")
+    public List <Items> getItems(){
+        List <Items> items = itemRepository.findAll();
+        System.out.println(items);
+        return items;
     }
 }

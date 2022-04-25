@@ -1,6 +1,10 @@
 package com.example.Swapyard.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -12,6 +16,18 @@ public class Items {
 
     public Items() {
 
+    }
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "items")
+    @JsonManagedReference
+    private List<Swipes> swipes;
+
+    public List<Swipes> getSwipes() {
+        return swipes;
+    }
+
+    public void setSwipes(List<Swipes> swipes) {
+        this.swipes = swipes;
     }
 
     public Long getId() {
@@ -28,6 +44,16 @@ public class Items {
     private String color;
     //choose from checkbox
     private String material;
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     //Make it one to many
     @OneToOne (cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
@@ -73,4 +99,15 @@ public class Items {
         this.images = images;
     }
 
+    @ManyToOne(optional = false)
+    @JsonBackReference
+    private Users users;
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
 }

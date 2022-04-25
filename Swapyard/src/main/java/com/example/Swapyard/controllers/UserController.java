@@ -3,7 +3,7 @@ package com.example.Swapyard.controllers;
 //import com.example.Swapyard.models.CustomUserDetails;
 
 import com.example.Swapyard.models.Role;
-import com.example.Swapyard.models.User;
+import com.example.Swapyard.models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +11,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import com.example.Swapyard.repositories.UserRepository;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.Principal;
 import java.util.*;
 
@@ -23,7 +28,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("users-list")
-    public List<User> list() {
+    public List<Users> list() {
         return userRepository.findAll();
     }
 
@@ -35,7 +40,7 @@ public class UserController {
     //register works
     @PostMapping("register")
     @ResponseStatus(HttpStatus.OK)
-    public User create(@RequestBody User user) {
+    public Users create(@RequestBody Users user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
@@ -51,7 +56,8 @@ public class UserController {
 
     //this works but not with my credentials? we are getting closer..
     @RequestMapping("login")
-    public Principal user(Principal user) {
+    public Principal user(Principal user) throws IOException {
+
         return user;
     }
 

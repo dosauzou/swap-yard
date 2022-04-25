@@ -1,12 +1,10 @@
 package com.example.Swapyard.services;
 
 import com.example.Swapyard.models.Post;
-import com.example.Swapyard.models.User;
 import com.example.Swapyard.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,6 +19,9 @@ public class PostService {
     public Post storePostFromFile(MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Post dbFile = new Post(fileName, file.getContentType(), file.getBytes());
+        System.out.println(dbFile.getData().length);
+        System.out.println(file.getBytes().length);
+
         return dbFile;
     }
 
