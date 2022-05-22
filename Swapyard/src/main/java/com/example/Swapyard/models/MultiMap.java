@@ -4,13 +4,21 @@ public class MultiMap {
     Object user;
     Object items;
     Object swap;
+    String chatId;
 
+    public String getChatId() {
+        return chatId;
+    }
 
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
-    public MultiMap(Object user, Object items, Object swap) {
+    public MultiMap(Object user, Object items, Object swap, String chatId) {
         this.user = user;
         this.items = items;
         this.swap = swap;
+        this.chatId = chatId;
     }
 
     public Object getSwap() {

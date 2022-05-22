@@ -6,6 +6,7 @@ import com.example.Swapyard.repositories.MatchRepository;
 import com.example.Swapyard.repositories.SwipeRepository;
 import com.example.Swapyard.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,6 +32,7 @@ public class SwipeService {
     @Autowired
     private ItemRepository itemRepository;
 
+    private String chatId;
     public Set<Users> c(List<Users> a, List<Users> b) {
         //will return a list of any users that intersect
 
@@ -77,7 +80,10 @@ public class SwipeService {
 
             if (!u.getMatches().stream().anyMatch(o -> o.getMatch().getUsername().equals(d.getUsername()))) {
                 userMatches.setMatch(d);
+                userMatches.setChatId(d.getUsername()+""+b.getUsername());
                 u.getMatches().add(userMatches);
+                sendNotification(u);
+                //Get users current subscription and send a user a notification of the new match
                 userRepository.save(u);
             }
         }
@@ -87,40 +93,44 @@ public class SwipeService {
             if (!r.getMatches().stream().anyMatch(o -> o.getMatch().getUsername().equals(u.getUsername()))) {
                 UserMatches wow = new UserMatches();
                 wow.setMatch(u);
+                wow.setChatId(r.getUsername()+b.getUsername());
                 r.getMatches().add(wow);
+                sendNotification(r);
                 System.out.println(r.getMatches());
+                //Get users current subscription and send a user a notification of the new match
                 userRepository.save(r);
             }
 
         }
-
-        //now what to do with the result?
-//        for(Users o: result){
-//            Users user = userRepository.findByUsername(o.getUsername());
-//            Subscriptions s = user.getSubs();
-//            String firstjson = new ObjectMapper().writeValueAsString(s);
-//           String json = firstjson.replace("key","keys");
-//            System.out.println(json);
-////            push notification to the user
-//            URL url = new URL("http://localhost:3000/notification");
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//            con.setRequestMethod("POST");
-//            con.setRequestProperty("Content-Type", "application/json");
-//            con.setRequestProperty("Accept", "application/json");
-//            con.setDoOutput(true);
-//            con.setDoInput (true);
-//            try(OutputStream os = con.getOutputStream()) {
-//                byte[] input = json.getBytes("utf-8");
-//                os.write(input, 0, input.length);
-//            }
-//            InputStream responseStream = con.getInputStream();
-//            int responseCode1 = con.getResponseCode();
-//            System.out.println(responseCode1);
-//        }
-
-        //'ive
-        //I want to return, the item matched to a user
         return result;
+    }
+
+    private void sendNotification(Users user) throws IOException {
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+//        for (Users o : result) {
+//            Users user = userRepository.findByUsername(x.getUsername());
+//            Subscriptions s = user.getSubs();
+            String firstjson = new ObjectMapper().writeValueAsString(user.getSubs());
+            String json = firstjson.replace("key", "keys");
+//            System.out.println(json);
+//            push notification to the user
+
+
+            URL url = new URL("http://localhost:3000/notification");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            System.out.println(json);
+            try (OutputStream os = con.getOutputStream()) {
+                byte[] input = json.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+            int responseCode1 = con.getResponseCode();
+            System.out.println(responseCode1);
+
     }
 }
 

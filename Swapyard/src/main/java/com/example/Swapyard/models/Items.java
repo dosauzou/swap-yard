@@ -56,8 +56,8 @@ public class Items {
     }
 
     //Make it one to many
-    @OneToOne (cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    private Post images;
+    @OneToMany (cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    private List<Post> images;
 
     public String getClothingCondition() {
         return clothingCondition;
@@ -91,11 +91,12 @@ public class Items {
         this.material = material;
     }
 
-    public Post getImages() {
+
+    public List<Post> getImages() {
         return images;
     }
 
-    public void setImages(Post images) {
+    public void setImages(List<Post> images) {
         this.images = images;
     }
 

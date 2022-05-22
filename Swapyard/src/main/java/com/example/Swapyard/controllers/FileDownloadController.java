@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200", allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
 @RequestMapping("/api/v1/post")
 public class FileDownloadController {
 
@@ -29,12 +29,10 @@ public class FileDownloadController {
 
     //Create a find by user id method
     @GetMapping("downloads/{userId}")
-    public List<Post> findAll(@PathVariable("userId") String userId){
-        List<Post> posts = new ArrayList<>();
+    public List<Items>  findAll(@PathVariable("userId") String userId){
+        List<List<Post>> posts = new ArrayList<>();
         Users user = userRepository.findByUsername(userId);
-        for(Items x: user.getItems()){
-            posts.add(x.getImages());
-        }
-        return posts;
+
+        return user.getItems();
     }
 }

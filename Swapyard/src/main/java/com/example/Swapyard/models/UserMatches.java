@@ -1,6 +1,7 @@
 package com.example.Swapyard.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.*;
@@ -12,7 +13,15 @@ public class UserMatches {
     @JsonBackReference
     @OneToOne(cascade = CascadeType.MERGE)
     Users match;
+    private String chatId;
 
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
 
     @ManyToOne
     @JoinColumn(name = "swap_id")

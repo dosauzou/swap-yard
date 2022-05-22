@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin(origins = "https://localhost:4200", allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
 @RequestMapping("/api/v1")
 public class NotificationController {
     @Autowired
@@ -70,7 +70,8 @@ public class NotificationController {
             //find the items swiped on where the item id = r
             //i each userswipe.getitem.getuserid=bo.getuserid
             itemsList = set.toArray();
-            multiMap = new MultiMap(o, itemsList, o.getSwap());
+            System.out.println(o.getChatId());
+            multiMap = new MultiMap(o.getMatch(), itemsList, o.getSwap(), o.getChatId());
             userMatches.add(multiMap);
 
 
