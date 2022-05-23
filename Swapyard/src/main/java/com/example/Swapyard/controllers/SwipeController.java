@@ -32,13 +32,14 @@ public class SwipeController {
         Users user = userRepository.findByUsername(username);
         //set the swipeUserId = user.getId
         Items item = itemRepository.getById(swipeId);
+        Swipes swipe = new Swipes(item);
+        swipe.setUserId(user.getId());
+        swipeRepository.save(swipe);
+
         swipeService.comparison(user);
 
        System.out.println(swipeId);
-       Swipes swipe = new Swipes(item);
-       swipe.setUserId(user.getId());
 
-       swipeRepository.save(swipe);
         return swipe;
     }
 

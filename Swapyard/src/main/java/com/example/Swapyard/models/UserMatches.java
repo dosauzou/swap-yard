@@ -13,7 +13,7 @@ public class UserMatches {
     @JsonBackReference
     @OneToOne(cascade = CascadeType.MERGE)
     Users match;
-    private String chatId;
+    String chatId;
 
     public String getChatId() {
         return chatId;
@@ -23,7 +23,7 @@ public class UserMatches {
         this.chatId = chatId;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "swap_id")
     private Swap swap;
 

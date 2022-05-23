@@ -1,14 +1,16 @@
 package com.example.Swapyard.models;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import javax.persistence.*;
 
 @Entity
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class Swap {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
-
     public SwapDetails getDetails() {
         return details;
     }
@@ -17,7 +19,7 @@ public class Swap {
         this.details = details;
     }
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private SwapDetails details;
 
 
@@ -39,6 +41,8 @@ public class Swap {
         this.id = id;
     }
     @Entity
+    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+    public static
     class SwapDetails {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)

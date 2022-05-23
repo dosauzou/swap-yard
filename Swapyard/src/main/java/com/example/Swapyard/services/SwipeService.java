@@ -82,7 +82,7 @@ public class SwipeService {
                 userMatches.setMatch(d);
                 userMatches.setChatId(d.getUsername()+""+b.getUsername());
                 u.getMatches().add(userMatches);
-                sendNotification(u);
+//                sendNotification(u);
                 //Get users current subscription and send a user a notification of the new match
                 userRepository.save(u);
             }
@@ -95,43 +95,46 @@ public class SwipeService {
                 wow.setMatch(u);
                 wow.setChatId(r.getUsername()+b.getUsername());
                 r.getMatches().add(wow);
-                sendNotification(r);
+//                sendNotification(r);
                 System.out.println(r.getMatches());
                 //Get users current subscription and send a user a notification of the new match
                 userRepository.save(r);
             }
 
+            System.out.println(result);
+
         }
+
         return result;
     }
 
-    private void sendNotification(Users user) throws IOException {
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-//        for (Users o : result) {
-//            Users user = userRepository.findByUsername(x.getUsername());
-//            Subscriptions s = user.getSubs();
-            String firstjson = new ObjectMapper().writeValueAsString(user.getSubs());
-            String json = firstjson.replace("key", "keys");
+//    private void sendNotification(Users user) throws IOException {
+//        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+////        for (Users o : result) {
+////            Users user = userRepository.findByUsername(x.getUsername());
+////            Subscriptions s = user.getSubs();
+//            String firstjson = new ObjectMapper().writeValueAsString(user.getSubs());
+//            String json = firstjson.replace("key", "keys");
+////            System.out.println(json);
+////            push notification to the user
+//
+//
+//            URL url = new URL("http://localhost:3000/notification");
+//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//            con.setRequestMethod("POST");
+//            con.setRequestProperty("Content-Type", "application/json");
+//            con.setRequestProperty("Accept", "application/json");
+//            con.setDoOutput(true);
+//            con.setDoInput(true);
 //            System.out.println(json);
-//            push notification to the user
-
-
-            URL url = new URL("http://localhost:3000/notification");
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("POST");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setRequestProperty("Accept", "application/json");
-            con.setDoOutput(true);
-            con.setDoInput(true);
-            System.out.println(json);
-            try (OutputStream os = con.getOutputStream()) {
-                byte[] input = json.getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
-            int responseCode1 = con.getResponseCode();
-            System.out.println(responseCode1);
-
-    }
+//            try (OutputStream os = con.getOutputStream()) {
+//                byte[] input = json.getBytes("utf-8");
+//                os.write(input, 0, input.length);
+//            }
+//            int responseCode1 = con.getResponseCode();
+//            System.out.println(responseCode1);
+//
+//    }
 }
 
 
