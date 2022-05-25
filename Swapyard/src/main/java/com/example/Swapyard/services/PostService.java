@@ -28,6 +28,15 @@ public class PostService {
         return posts;
     }
 
+    public  Post createPost(MultipartFile file) throws IOException {
+
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            Post dbFile = new Post(fileName, file.getContentType(), file.getBytes());
+
+        return dbFile;
+    }
+
+
     public void storePost(Post post){
         postRepo.save(post);
     }

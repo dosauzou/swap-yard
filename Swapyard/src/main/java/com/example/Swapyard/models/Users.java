@@ -18,8 +18,12 @@ public class Users {
 
     @Column(unique = true)
     private String username;
-
+    private String bio;
     private String firstName;
+
+    @OneToOne(cascade = CascadeType.MERGE)
+    private Post profilepic;
+
     private String lastName;
     private String phoneNo;
     @OneToMany
@@ -33,6 +37,33 @@ public class Users {
     private String password;
 
     private boolean enabled;
+
+    @ElementCollection
+    private List<Long> dislikes;
+
+    public List<Long> getDislikes() {
+        return dislikes;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public Post getProfilepic() {
+        return profilepic;
+    }
+
+    public void setProfilepic(Post profilepic) {
+        this.profilepic = profilepic;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setDislikes(List<Long> dislikes) {
+        this.dislikes = dislikes;
+    }
 
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JsonManagedReference
