@@ -30,7 +30,6 @@ public class FileDownloadController {
     //Create a find by user id method
     @GetMapping("downloads/{userId}")
     public List<Items>  findAll(@PathVariable("userId") String userId){
-        List<List<Post>> posts = new ArrayList<>();
         Users user = userRepository.findByUsername(userId);
 
         return user.getItems();

@@ -70,13 +70,14 @@ public class NotificationController {
             //find the items swiped on where the item id = r
             //i each userswipe.getitem.getuserid=bo.getuserid
             itemsList = set.toArray();
-            System.out.println(o.getChatId());
             multiMap = new MultiMap(o.getMatch(), itemsList, o.getSwap(), o.getChatId());
             userMatches.add(multiMap);
 
 
+
             //findwhattheuser had like
         }
+
 
         return userMatches;
     }

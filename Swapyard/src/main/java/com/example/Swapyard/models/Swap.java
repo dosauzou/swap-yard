@@ -23,18 +23,18 @@ public class Swap {
     private SwapDetails details;
 
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    private Boolean status;
+public String swapStatus;
 
     public Long getId() {
         return id;
+    }
+
+    public String getSwapStatus() {
+        return swapStatus;
+    }
+
+    public void setSwapStatus(String swapStatus) {
+        this.swapStatus = swapStatus;
     }
 
     public void setId(Long id) {

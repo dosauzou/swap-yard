@@ -37,38 +37,28 @@ public class SwapController {
 
     @RequestMapping("/{userId}")
     public Object findByMatch(@RequestBody   String match, @PathVariable("userId") String userId) throws JsonProcessingException, ParseException, JSONException {
-JSONObject j = new JSONObject(match);
-System.out.println(j.get("swap"));
-////            String jsons = match.get("swap").toString();
-//        System.out.println(jsons);
-////
-            System.out.println(match);
-        System.out.println(userId);
+        JSONObject j = new JSONObject(match);
+
         Swap swap = new Swap();
         ObjectMapper objectMapper = new ObjectMapper();
 //        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-JSONObject x = (JSONObject) j.get("swap");
+        JSONObject x = (JSONObject) j.get("swap");
         Swap.SwapDetails details = objectMapper.readValue(x.get("details").toString(), Swap.SwapDetails.class);
         swap.setDetails(details);
-        swap.setStatus(true);
-       Users user = userRepository.findByUsername(userId);
-       Users user2 = userRepository.findByUsername((j.get("user").toString()));
-       List<UserMatches> xo =  matchRepository.findAllByChatId(user2.getUsername()+""+user.getUsername());
-       for(UserMatches m : xo){
+        swap.setSwapStatus("false");
+
+        Users user = userRepository.findByUsername(userId);
+        Users user2 = userRepository.findByUsername((j.get("user").toString()));
+        List<UserMatches> xo =  matchRepository.findAllByChatId(user2.getUsername()+""+user.getUsername());
+        if(xo.size()==0){
+            xo =  matchRepository.findAllByChatId(user.getUsername()+""+user2.getUsername());
+        }
+        
+        for(UserMatches m : xo){
            m.setSwap(swap);
            matchRepository.save(m);
        }
-
-//        System.out.println(jsons);
-//        System.out.println(json);
-        //find match in database with user id where match is equal to whatever
-        //parse that to database
-//        JSONParser parser = new JSONParser();
-//        JSONObject js = (JSONObject) parser.parse(json);
-//        System.out.println(js.toJSONString());
-
-//        Read more: https://www.java67.com/2016/10/3-ways-to-convert-string-to-json-object-in-java.html#ixzz7QSYxLcfp
-        return match;
+  return match;
 
     }
 

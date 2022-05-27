@@ -3,7 +3,7 @@ package com.example.Swapyard.models;
 public class MultiMap {
     Object user;
     Object items;
-    Object swap;
+    Swap swap;
     String chatId;
 
     public String getChatId() {
@@ -14,18 +14,18 @@ public class MultiMap {
         this.chatId = chatId;
     }
 
-    public MultiMap(Object user, Object items, Object swap, String chatId) {
+    public MultiMap(Object user, Object items, Swap swap, String chatId) {
         this.user = user;
         this.items = items;
         this.swap = swap;
         this.chatId = chatId;
     }
 
-    public Object getSwap() {
+    public Swap getSwap() {
         return swap;
     }
 
-    public void setSwap(Object swap) {
+    public void setSwap(Swap swap) {
         this.swap = swap;
     }
 
