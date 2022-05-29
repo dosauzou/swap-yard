@@ -5,6 +5,7 @@ public class MultiMap {
     Object items;
     Swap swap;
     String chatId;
+    Object matchItems;
 
     public String getChatId() {
         return chatId;
@@ -14,11 +15,20 @@ public class MultiMap {
         this.chatId = chatId;
     }
 
-    public MultiMap(Object user, Object items, Swap swap, String chatId) {
+    public MultiMap(Object user, Object items, Swap swap, String chatId, Object matchItems) {
         this.user = user;
         this.items = items;
         this.swap = swap;
         this.chatId = chatId;
+        this.matchItems = matchItems;
+    }
+
+    public Object getMatchItems() {
+        return matchItems;
+    }
+
+    public void setMatchItems(Object matchItems) {
+        this.matchItems = matchItems;
     }
 
     public Swap getSwap() {

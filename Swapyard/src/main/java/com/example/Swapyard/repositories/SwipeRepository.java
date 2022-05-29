@@ -9,6 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface SwipeRepository extends JpaRepository<Swipes, Long> {
-    List<Swipes> findByUserId(@Param("userId") Long userId);
+    List<Swipes> findByUserId(Long userId);
 
 }

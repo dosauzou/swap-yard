@@ -3,6 +3,8 @@ package com.example.Swapyard.models;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
@@ -22,8 +24,18 @@ public class Swap {
     @OneToOne(cascade = CascadeType.PERSIST)
     private SwapDetails details;
 
+    @OneToMany(cascade = CascadeType.MERGE)
+    private Set<Items> swapItems;
 
-public String swapStatus;
+    public Set<Items> getSwapItems() {
+        return swapItems;
+    }
+
+    public void setSwapItems(Set<Items> swapItems) {
+        this.swapItems = swapItems;
+    }
+
+    public String swapStatus;
 
     public Long getId() {
         return id;

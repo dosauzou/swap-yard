@@ -7,4 +7,8 @@ import java.util.List;
 
 public interface MatchRepository extends JpaRepository<UserMatches, Long> {
     List<UserMatches> findAllByChatId(String chatId);
+    List<UserMatches> findByChatIdOrderByIdDesc(String chatId);
+    List<UserMatches> findByChatIdAndChatIdOrderById(String chatId,String chat);
+
+
 }

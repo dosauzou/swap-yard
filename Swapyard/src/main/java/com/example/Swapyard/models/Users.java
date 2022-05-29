@@ -26,10 +26,6 @@ public class Users {
 
     private String lastName;
     private String phoneNo;
-    @OneToMany
-    private List<Users> followers;
-    @OneToMany
-    private List<Users> following;
 
 
     @Column(unique = true)
@@ -103,21 +99,6 @@ public class Users {
         this.items = items;
     }
 
-    public List<Users> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(List<Users> followers) {
-        this.followers = followers;
-    }
-
-    public List<Users> getFollowing() {
-        return following;
-    }
-
-    public void setFollowing(List<Users> following) {
-        this.following = following;
-    }
 
     public Long getId() {
         return id;
