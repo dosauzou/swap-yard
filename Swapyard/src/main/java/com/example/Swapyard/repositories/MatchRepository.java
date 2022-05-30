@@ -11,4 +11,5 @@ public interface MatchRepository extends JpaRepository<UserMatches, Long> {
     List<UserMatches> findByChatIdAndChatIdOrderById(String chatId,String chat);
 
 
+    List<UserMatches> findAllBySwapId(Long match);
 }

@@ -10,6 +10,7 @@ import com.example.Swapyard.repositories.SwapRepository;
 import com.example.Swapyard.repositories.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.User;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +18,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -86,6 +88,27 @@ public class SwapController {
         s.setSwapStatus("true");
         swapRepository.save(s);
         return s;
+    }
+//@Transactional
+    @RequestMapping("/unmatch/{userId}/{matchId}")
+    public Object unmatch(@RequestBody Long match , @PathVariable("userId") String userId , @PathVariable("matchId") String matchId) {
+
+        List<UserMatches> l = matchRepository.findAllBySwapId(match);
+        Users u= userRepository.findByUsername(userId);
+        Users b = userRepository.findByUsername(matchId);
+
+        List<UserMatches> um = u.getMatches();
+        List<UserMatches> ub = b.getMatches();
+
+        um.removeIf(p-> p.getSwap().getId()==match);
+        ub.removeIf(p-> p.getSwap().getId()==match);
+
+        u.setMatches(um);
+        b.setMatches(ub);
+        userRepository.save(u);
+        userRepository.save(b);
+
+        return l;
     }
 
 
