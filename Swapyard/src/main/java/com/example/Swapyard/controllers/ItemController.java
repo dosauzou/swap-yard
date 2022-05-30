@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "https://localhost:4200", allowedHeaders={"x-auth-token", "x-requested-with", "x-xsrf-token"})
@@ -35,6 +34,13 @@ public class ItemController {
         System.out.println(user.getItems());
         userRepository.save(user);
         return item;
+    }
+
+    @RequestMapping( "deleteItem")
+    public void deleteItem(@RequestBody Long id){
+        itemRepository.deleteById(id);
+//        List <Items> postsList = new ArrayList<>();
+
     }
 
     @GetMapping("getItems")

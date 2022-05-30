@@ -15,5 +15,4 @@ public interface ItemRepository extends JpaRepository<Items, Long>{
 
     List<Items>  findByUsers(@Param("users") Users users);
 
-
 }

@@ -79,7 +79,18 @@ public class SwapController {
 
     }
 
-    @RequestMapping("/{userId}")
+    @RequestMapping("/markDone")
+    public Object markAsDone(@RequestBody Long match) {
+        System.out.println(match);
+        Swap s = swapRepository.findById(match).get();
+        s.setSwapStatus("true");
+        swapRepository.save(s);
+        return s;
+    }
+
+
+
+        @RequestMapping("/{userId}")
     public Object findByMatch(@RequestBody String match, @PathVariable("userId") String userId) throws JsonProcessingException, ParseException, JSONException {
         JSONObject j = new JSONObject(match);
         ObjectMapper objectMapper = new ObjectMapper();
