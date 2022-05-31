@@ -123,20 +123,20 @@ public class SwipeService {
 //            push notification to the user
 
 
-//            URL url = new URL("http://localhost:3000/notification");
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//            con.setRequestMethod("POST");
-//            con.setRequestProperty("Content-Type", "application/json");
-//            con.setRequestProperty("Accept", "application/json");
-//            con.setDoOutput(true);
-//            con.setDoInput(true);
-//            System.out.println(json);
-//            try (OutputStream os = con.getOutputStream()) {
-//                byte[] input = json.getBytes("utf-8");
-//                os.write(input, 0, input.length);
-//            }
-//            int responseCode1 = con.getResponseCode();
-//            System.out.println(responseCode1);
+            URL url = new URL("http://localhost:3000/notification");
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Accept", "application/json");
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            System.out.println(json);
+            try (OutputStream os = con.getOutputStream()) {
+                byte[] input = json.getBytes("utf-8");
+                os.write(input, 0, input.length);
+            }
+            int responseCode1 = con.getResponseCode();
+            System.out.println(responseCode1);
 
     }
 }

@@ -48,6 +48,15 @@ public class Items {
     private String color;
     //choose from checkbox
     private String material;
+private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     private String description;
 
